@@ -1,5 +1,6 @@
 package com.example.jeromesamuel.cst2335final;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -33,6 +34,8 @@ android.support.v7.widget.Toolbar toolbar;
         switch(item.getItemId()){
             case R.id.busRouteIcon:
                 //insert code to switch activity here
+                Intent intent = new Intent(MainActivity.this, BusRouteMain.class);
+                startActivityForResult(intent, 5);
                 break;
             case R.id.movieDBIcon:
                 //insert code to switch activity here
