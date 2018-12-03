@@ -20,7 +20,8 @@
         </activity>
         <activity android:name=".BusRouteMain" />
         <activity android:name=".BusRouteView" />
-        <activity android:name=".BusRouteList"></activity>
+        <activity android:name=".BusRouteList" />
+        <activity android:name=".BusFavorites"></activity>
     </application>
 
 </manifest>

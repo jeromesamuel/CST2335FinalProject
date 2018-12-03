@@ -117,6 +117,7 @@ public class BusRouteView extends AppCompatActivity {
 
 
         public String doInBackground(String... args) {
+            Log.d("Method: ", "doInBackground");
             try{
                 tripDestList.clear();
                 currentLongList.clear();
@@ -124,6 +125,7 @@ public class BusRouteView extends AppCompatActivity {
                 startTimeList.clear();
                 speedList.clear();
                 scheduledTimeList.clear();
+
                 URL url = new URL("https://api.octranspo1.com/v1.2/GetNextTripsForStop?appID=223eb5c3&&apiKey=ab27db5b435b8c8819ffb8095328e775"+"&stopNo="+stopNumber+"&routeNo="+busNum);
                 Log.d("URL: ", url.toString());
                 JSONHandler json = new JSONHandler();
@@ -154,6 +156,8 @@ public class BusRouteView extends AppCompatActivity {
                                 Log.d("tripDest: ", tripDest);
 
 
+
+
                             }
                         }
 
@@ -163,6 +167,7 @@ public class BusRouteView extends AppCompatActivity {
                                 tripStartTime = parser.nextText();
                                 startTimeList.add(tripStartTime);
                                 Log.d("start time: ", tripStartTime);
+
 
 
                             }
@@ -176,6 +181,8 @@ public class BusRouteView extends AppCompatActivity {
                                 Log.d("scheduled time: ", scheduledTime);
 
 
+
+
                             }
                         }
 
@@ -185,6 +192,8 @@ public class BusRouteView extends AppCompatActivity {
                                 currentLocationLat = parser.nextText();
                                 currentLatList.add(currentLocationLat);
                                 Log.d("latitude: ", currentLocationLat);
+
+
 
 
                             }
@@ -198,6 +207,7 @@ public class BusRouteView extends AppCompatActivity {
                                 Log.d("longitude: ", currentLocationLong);
 
 
+
                             }
                         }
 
@@ -209,6 +219,8 @@ public class BusRouteView extends AppCompatActivity {
                                 currentSpeed = parser.nextText();
                                 speedList.add(currentSpeed);
                                 Log.d("speed:", currentSpeed);
+                                sleep();
+
 
 
                             }
@@ -252,6 +264,7 @@ public class BusRouteView extends AppCompatActivity {
         }
 
 
+
         protected void onPostExecute(String args) {
 
 
@@ -293,11 +306,16 @@ else if(scheduledTimeList.size() > 0) {
 
 
             busRouteNum.setText("Trip Destination:" + tripDest);
+            publishProgress(40);
+            sleep();
             busLocation.setText("Location: " + currentLocationLat+", " +currentLocationLong);
             busSpeed.setText("Current speed: " + currentSpeed + " km/h");
             tripStart.setText("Trip starts/started at: " +tripStartTime);
             scheduledTimeArrival.setText("ETA: " + scheduledTime +" minutes");
-            progBar.setVisibility(View.INVISIBLE);
+            sleep();
+            publishProgress(100);
+            progBar.setVisibility(View.VISIBLE);
+
 
             //    Log.i(TAG, "onPostExecute: string passed = "+args);
 
