@@ -13,6 +13,15 @@
     <string name="refreshBtn">Refresh</string>
     <string name="FavoritesBtn">Add to Favorites</string>
     <string name="Go">Go</string>
+    <string name="StopNumber">Stop Number</string>
+     <string name="info">Author: Yahya Wardere 
+    This is a RSS Feed News app getting the News from the cbc website. You can Read the head lines and Save the articles or Visit the news links
+    Activity version: 1.0
+    </string>
+    <string name="yahyaWelcome">CBC Reader app created by Yahya Wardere</string>
+    <string name="jeromeWelcome">OC Transpo app created by Jerome Samuel</string>
+
+
 
 
 

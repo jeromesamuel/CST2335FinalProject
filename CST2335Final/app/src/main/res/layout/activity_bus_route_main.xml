@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="Stop Number"
+            android:text="@string/StopNumber"
             android:textColor="@android:color/background_dark"
             android:textSize="20dp" />
 
@@ -41,14 +41,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:text="Go" />
+            android:text="@string/Go" />
 
         <Button
             android:id="@+id/favoritesButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:text="Add to Favorites" />
+            android:text="@string/FavoritesBtn" />
 
 
 

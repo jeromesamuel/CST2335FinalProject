@@ -31,4 +31,6 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation files('lib/ksoap2-android-3.6.2.jar')
     implementation 'com.android.support:design:26.1.0'
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    
 }
