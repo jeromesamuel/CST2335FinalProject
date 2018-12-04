@@ -4,23 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.jeromesamuel.cst2335final.BusRouteMain">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
 
+<android.support.v7.widget.Toolbar
+    android:id="@+id/busToolbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorPrimary"
+    android:minHeight="?attr/actionBarSize"
+    >
+
+
+
+</android.support.v7.widget.Toolbar>
 
         <TextView
             android:id="@+id/stopNumString"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="Stop Number"
+            android:text="@string/StopNumber"
             android:textColor="@android:color/background_dark"
             android:textSize="20dp" />
 
@@ -36,22 +41,18 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:text="Go" />
+            android:text="@string/Go" />
 
         <Button
             android:id="@+id/favoritesButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:text="Add to Favorites" />
+            android:text="@string/FavoritesBtn" />
 
-        <TextView
-            android:id="@+id/returnStopInfo"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Hello World" />
+
 
 
     </LinearLayout>
 
-</LinearLayout>
+

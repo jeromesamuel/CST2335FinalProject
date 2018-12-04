@@ -20,7 +20,13 @@
         </activity>
         <activity android:name=".BusRouteMain" />
         <activity android:name=".BusRouteView" />
-        <activity android:name=".BusRouteList"></activity>
+        <activity android:name=".BusRouteList" />
+        <activity android:name=".BusFavorites"/>
+        <activity android:name=".CBCMainActivity"></activity>
+        <activity android:name=".news"/>
+        <activity android:name=".saved_List"/>
+        <activity android:name=".web"/>
+
     </application>
 
 </manifest>

@@ -1,65 +1,56 @@
 package com.example.jeromesamuel.cst2335final;
 
-/**
- * Created by jeromesamuel on 2018-12-02.
- */
-
 import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.io.BufferedInputStream;
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class CustomListAdapter extends ArrayAdapter<String> {
 
     private final Activity context;
-    private final ArrayList<String> busRouteArray;
-    private final ArrayList<String> busDirectionArray;
+    private final ArrayList<String> titles;
+    private final ArrayList<String> imagelinks;
+    private final ArrayList<String> pubDates;
+
+    ImageView imageView;
 
 
 
-
-
-    public CustomListAdapter(Activity context, ArrayList<String> busRouteArray,ArrayList<String> busDirectionArray) {
-        super(context, R.layout.list_item, busRouteArray);
+    public CustomListAdapter(Activity context, ArrayList<String> titles, ArrayList<String> imagelinks,ArrayList<String> pubDates) {
+        super(context, R.layout.newslist, imagelinks);
         // TODO Auto-generated constructor stub
 
         this.context = context;
-        this.busRouteArray = busRouteArray;
-        this.busDirectionArray=busDirectionArray;
-
+        this.titles = titles;
+        this.imagelinks = imagelinks;
+        this.pubDates =pubDates;
 
     }
 
     public View getView(int position, View view, ViewGroup parent) {
-
         LayoutInflater inflater = context.getLayoutInflater();
-        View rowView = inflater.inflate(R.layout.list_item, null, true);
+        View rowView = inflater.inflate(R.layout.newslist, null, true);
 
-        TextView busRoute = (TextView) rowView.findViewById(R.id.busRoute);
+        TextView txtTitle = (TextView) rowView.findViewById(R.id.item);
+        imageView = (ImageView) rowView.findViewById(R.id.icon);
+
+       TextView pubDate = (TextView) rowView.findViewById(R.id.textView1);
 
 
-        TextView busDirection = (TextView) rowView.findViewById(R.id.Direction);
 
-        busRoute.setText(busRouteArray.get(position));
-        busDirection.setText(busDirectionArray.get(position));
-        busRoute.setTextColor(Color.BLACK);
-        busDirection.setTextColor(Color.RED);
+
+        txtTitle.setText(titles.get(position));
+        pubDate.setText(pubDates.get(position));
+       Picasso.get().load(imagelinks.get(position)).into(imageView);
+
+
 
 
         return rowView;

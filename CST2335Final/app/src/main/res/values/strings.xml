@@ -1,3 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">CST2335Final</string>
+    <string name="help_menu">
+        <big>Author Name: Jerome Samuel</big>
+        <br>Instructions: Enter your desired stop number, and click Go. This will return a list of busses
+            that service your stop. Click one of them to see when details about that bus. Alternatively, you could click Add to Favorites, which will
+             add that stop into your favorites list, so it is easily accessible.</br>
+
+        <br>Activity version: 1.2</br>
+    </string>
+    <string name="added">Added to Favorites</string>
+    <string name="refreshBtn">Refresh</string>
+    <string name="FavoritesBtn">Add to Favorites</string>
+    <string name="Go">Go</string>
+    <string name="StopNumber">Stop Number</string>
+     <string name="info">Author: Yahya Wardere 
+    This is a RSS Feed News app getting the News from the cbc website. You can Read the head lines and Save the articles or Visit the news links
+    Activity version: 1.0
+    </string>
+    <string name="yahyaWelcome">CBC Reader app created by Yahya Wardere</string>
+    <string name="jeromeWelcome">OC Transpo app created by Jerome Samuel</string>
+
+
+
+
+
+
 </resources>

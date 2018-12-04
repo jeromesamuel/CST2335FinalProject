@@ -42,6 +42,8 @@ android.support.v7.widget.Toolbar toolbar;
                 break;
             case R.id.newsIcon:
                 //insert code to switch activity here
+                intent = new Intent(MainActivity.this, CBCMainActivity.class);
+                startActivity(intent);
                 break;
 
         }

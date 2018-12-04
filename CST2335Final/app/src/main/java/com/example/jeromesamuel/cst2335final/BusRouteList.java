@@ -6,19 +6,13 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.Xml;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -28,8 +22,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-import java.util.logging.Logger;
 
 public class BusRouteList extends AppCompatActivity {
     String TAG = MainActivity.class.getSimpleName();
@@ -56,7 +48,7 @@ public class BusRouteList extends AppCompatActivity {
         stopNum = getIntent().getStringExtra("Stop Number");
         new GetBusRoutes().execute();
 
-
+        Toast.makeText(this, "Routes for Stop "+stopNum, Toast.LENGTH_LONG).show();
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 
             @Override
@@ -179,7 +171,7 @@ catch (IOException e)
             /**
              * Updating parsed xml data into ListView
              * */
-            ListAdapter adapter = new CustomListAdapter(
+            ListAdapter adapter = new BusCustomListAdapter(
                     BusRouteList.this, busRouteArray, busDirectionArray);
 
                     listview.setAdapter(adapter);
