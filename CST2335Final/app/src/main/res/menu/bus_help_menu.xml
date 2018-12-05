@@ -10,4 +10,11 @@
 
         />
 
+    <item
+        android:title="Favorites"
+        android:id="@+id/favesBtn"
+        android:icon="@drawable/faves"
+        app:showAsAction="always"
+        />
+
 </menu>

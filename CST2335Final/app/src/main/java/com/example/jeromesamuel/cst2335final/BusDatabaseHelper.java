@@ -12,7 +12,7 @@ import android.util.Log;
 public class BusDatabaseHelper extends SQLiteOpenHelper {
     protected static final String ACTIVITY_NAME = "busDatabaseHelper";
     public static final String DATABASE_NAME = "stopList.db";
-    public static final int VERSION_NUM = 2;
+    public static final int VERSION_NUM = 3;
     public static final String TABLE_NAME = "busStopData";
     public static final String KEY_ID  = "keyId";
     protected static final String COLUMN_STOP = "StopNumber";

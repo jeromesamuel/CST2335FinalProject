@@ -58,7 +58,7 @@ public class BusRouteMain extends AppCompatActivity {
 
                 String stopNum =  stopNumber.getText().toString();
                 Intent intent = new Intent(BusRouteMain.this, BusFavorites.class);
-
+                Snackbar.make(view, R.string.added, Snackbar.LENGTH_LONG);
                 intent.putExtra("Stop Number", stopNum);
                 startActivity(intent);
 
@@ -94,6 +94,10 @@ public class BusRouteMain extends AppCompatActivity {
                 alertDialog.show();
                 //insert code to switch activity here
                 break;
+
+            case R.id.favesBtn:
+                Intent intent = new Intent(BusRouteMain.this, BusFavorites.class);
+                startActivity(intent);
 
         }
         return super.onOptionsItemSelected(item);

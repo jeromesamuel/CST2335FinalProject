@@ -54,13 +54,13 @@ public class BusFavorites extends AppCompatActivity {
         int rows = results.getCount();//number of rows
         results.moveToFirst();
 
-
-        stopList.add(stopNum);
-        ContentValues insertValues = new ContentValues();
-        insertValues.put(BusDatabaseHelper.COLUMN_STOP, stopNum);
-        sqldb.insert(BusDatabaseHelper.TABLE_NAME, "", insertValues);
-        busAdapter.notifyDataSetChanged(); //this restarts the process of getCount() & getView()
-
+if(stopNum!= null) {
+    stopList.add(stopNum);
+    ContentValues insertValues = new ContentValues();
+    insertValues.put(BusDatabaseHelper.COLUMN_STOP, stopNum);
+    sqldb.insert(BusDatabaseHelper.TABLE_NAME, "", insertValues);
+    busAdapter.notifyDataSetChanged(); //this restarts the process of getCount() & getView()
+}
 
         //Toast.makeText(this, "Stop is already in favorites", Toast.LENGTH_SHORT).show();
 
