@@ -4,6 +4,13 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the 'MyLocation' functionality. 
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -21,12 +28,22 @@
         <activity android:name=".BusRouteMain" />
         <activity android:name=".BusRouteView" />
         <activity android:name=".BusRouteList" />
-        <activity android:name=".BusFavorites"/>
-        <activity android:name=".CBCMainActivity"></activity>
-        <activity android:name=".news"/>
-        <activity android:name=".saved_List"/>
-        <activity android:name=".web"/>
+        <activity android:name=".BusFavorites" />
+        <activity android:name=".CBCMainActivity" />
+        <activity android:name=".news" />
+        <activity android:name=".saved_List" />
+        <activity android:name=".web" />
 
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBchTuCLEXE9BAf7Cm5dp_9t-MvyFZwWz4" />
+
+        <activity
+            android:name=".BusMapView"
+            android:label="@string/title_activity_bus_map_view"></activity>
     </application>
 
 </manifest>

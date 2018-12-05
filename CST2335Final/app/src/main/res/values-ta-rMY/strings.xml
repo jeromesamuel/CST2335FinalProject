@@ -14,4 +14,5 @@
     <string name="FavoritesBtn">பிடித்தவையில் சேர்</string>
     <string name="Go">போய்</string>
     <string name="StopNumber">நிறுத்து எண்</string>
+    <string name="MapButton">வரைபடத்தில் இருப்பிடத்தைக் காணவும்</string>
 </resources>
