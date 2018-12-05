@@ -19,7 +19,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class news extends Activity {
+public class SavedNews extends Activity {
     String imageLink;
     String extraInfo;
     String pageLink;
@@ -31,9 +31,9 @@ public class news extends Activity {
     protected NewsDatabaseHelper dbHelper;
     private SQLiteDatabase db;
 
-    Button Save;
+    Button delete;
 
-    protected static final String ACTIVITY_NAME = "news";
+    protected static final String ACTIVITY_NAME = "SavedNews";
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +42,11 @@ public class news extends Activity {
 
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_news);
+        setContentView(R.layout.activity_saved_news);
 
-        ImageView  imageView = ( ImageView) findViewById(R.id.imageViewNews);
-        TextView textViewNews = (TextView) findViewById(R.id.textViewNews);
-        TextView textViewLink= (TextView) findViewById(R.id.textViewLink);
+        ImageView  imageView = ( ImageView) findViewById(R.id.SavedimageViewNews);
+        TextView textViewNews = (TextView) findViewById(R.id.SavedtextViewNews);
+        TextView textViewLink= (TextView) findViewById(R.id.SavedtextViewLink);
 
 
         Intent intent= getIntent();
@@ -68,7 +68,7 @@ public class news extends Activity {
         // cursor = db.rawQuery(query, null);
 
 
-        Save = (Button) findViewById(R.id.Save);
+        delete = (Button) findViewById(R.id.SavedDelete);
 
 //        Cursor cursor = db.query(false, NewsDatabaseHelper.DATABASE_NAME,
 //                new String[] { NewsDatabaseHelper.KEY_ID, NewsDatabaseHelper.NEWS_TITLE }, null, null, null, null,
@@ -111,7 +111,7 @@ public class news extends Activity {
 
 
 
-                Intent intent = new Intent(news.this, web.class);
+                Intent intent = new Intent(SavedNews.this, web.class);
 
                 intent.putExtra("linkToPage",pageLink);
 
@@ -121,19 +121,10 @@ public class news extends Activity {
         });
 
 
-
-        Save.setOnClickListener(new View.OnClickListener() {
+        delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(news.this, "Article saved", Toast.LENGTH_SHORT).show();
-                String message = extraInfo;
-
-                ContentValues newValues = new ContentValues();
-
-                newValues.put(NewsDatabaseHelper.NEWS_TITLE, extraInfo);
-                db.insert(NewsDatabaseHelper.DATABASE_NAME, message, newValues);
-
-                listArraySave.add(pageLink);
+                Toast.makeText(SavedNews.this, "Article Deleted", Toast.LENGTH_SHORT).show();
 
             }
         }); //7

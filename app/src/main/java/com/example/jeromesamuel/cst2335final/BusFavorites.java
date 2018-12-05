@@ -53,7 +53,7 @@ public class BusFavorites extends AppCompatActivity {
                 null, null, null, null, null, null);
         int rows = results.getCount();//number of rows
         results.moveToFirst();
-
+/////////////////
 
         stopList.add(stopNum);
         ContentValues insertValues = new ContentValues();

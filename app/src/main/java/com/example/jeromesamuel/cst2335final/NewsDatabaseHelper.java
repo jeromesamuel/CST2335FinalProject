@@ -12,18 +12,26 @@ public class NewsDatabaseHelper extends SQLiteOpenHelper {
     static String DATABASE_NAME = "MyDatabase";
     static int VERSION_NUM = 3;
     final static String KEY_ID = "ID";
-    final static String KEY_MESSAGE = "MESSAGE";
+    public static final String TABLE_NAME = "newsData";
+        final static String NEWS_TITLE = "title";
+    final static String PUBLISH_DATE = "publishdate";
+    final static String NEWS_ARTICLE = "article";
+    final static String NEWS_LINK = "link";
+    final static String NEWS_IMAGE = "image";
 
     public NewsDatabaseHelper(Context ctx) {
-        super(ctx, DATABASE_NAME, null, VERSION_NUM);
+        super(ctx, DATABASE_NAME, null, 3);
 
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         Log.i("ChatDatabaseHelper", "Calling onCreate");
-        db.execSQL("CREATE TABLE " + DATABASE_NAME + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_MESSAGE
-                + " VARCHAR(256));");
+        String makeTable = "CREATE TABLE " + TABLE_NAME + "("
+                + PUBLISH_DATE + " TEXT," + NEWS_ARTICLE + " TEXT,"+ NEWS_IMAGE + " TEXT,"+ NEWS_TITLE + " TEXT,"
+                + NEWS_LINK  + " TEXT" + ")";
+
+        db.execSQL(makeTable);
 
     }
 

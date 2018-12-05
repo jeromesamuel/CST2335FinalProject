@@ -223,9 +223,9 @@ public class CBCMainActivity extends AppCompatActivity {
                             {
                                 // extract the text between <description> and </description>
 
-                                    //String currentTempString = parser.getAttributeValue(null, "img");
-                                    // String currentTempString2 = "test";
-                                    // extract the text between <link> and </link>
+                                //String currentTempString = parser.getAttributeValue(null, "img");
+                                // String currentTempString2 = "test";
+                                // extract the text between <link> and </link>
 
                                 description  =  xpp.nextText();
 
@@ -239,7 +239,7 @@ public class CBCMainActivity extends AppCompatActivity {
                                 Matcher  imageLinkMatcher = imageLinkPattern.matcher(description);
 
 
-                              //  String test1 = description.substring(description.indexOf("<p>")+3);
+                                //  String test1 = description.substring(description.indexOf("<p>")+3);
                                 String test2 = description.substring(description.indexOf("<p>")+3,description.length()-20);
 
 
@@ -256,8 +256,8 @@ public class CBCMainActivity extends AppCompatActivity {
                                             Intent intent = new Intent(CBCMainActivity.this, news.class);
                                             Bundle extras = new Bundle();
                                             extras.putString("imageLink", imageLinks.get(i));
-                                         extras.putString("extraInfo", extraInfos.get(i));
-                                         extras.putString("PageLink",links.get(i));
+                                            extras.putString("extraInfo", extraInfos.get(i));
+                                            extras.putString("PageLink",links.get(i));
 
                                             intent.putExtras(extras);
                                             //intent.putExtra("extraInfo", extraInfos.get(i));
@@ -271,7 +271,7 @@ public class CBCMainActivity extends AppCompatActivity {
 
                         }
 
-          else if (xpp.getName().equalsIgnoreCase("pubDate"))
+                        else if (xpp.getName().equalsIgnoreCase("pubDate"))
                         {
                             if (insideItem)
                             {
@@ -316,7 +316,6 @@ public class CBCMainActivity extends AppCompatActivity {
         protected void onPostExecute(Exception s) {
             super.onPostExecute(s);
 
-       //ArrayAdapter<String> adapter = new ArrayAdapter<String>(CBCMainActivity.this, android.R.layout.simple_list_item_1, titles);
 
 
     CustomListAdapter adapter = new CustomListAdapter(CBCMainActivity.this, titles,imageLinks,pubDate);

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="info">هذا هو تطبيق أخبار RSS Feed الحصول على الأخبار من موقع cbc. يمكنك قراءة الخطوط الرئيسية وحفظ المقالات أو زيارة رابط الأخبار</string>
+    <string name="TextView">نص</string>
+    <string name="Save">حفط</string>
+    <string name="delete">حذف</string>
+    <string name="Medium_Text">نص_منتصف</string>
+</resources>
