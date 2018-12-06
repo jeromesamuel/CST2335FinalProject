@@ -52,6 +52,7 @@ public class BusFavorites extends AppCompatActivity {
         final Cursor results = sqldb.query(false, BusDatabaseHelper.TABLE_NAME,
                 new String[]{BusDatabaseHelper.KEY_ID, BusDatabaseHelper.COLUMN_STOP},
                 null, null, null, null, null, null);
+
         int rows = results.getCount();//number of rows
         results.moveToFirst();
 
