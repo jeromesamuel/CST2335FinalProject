@@ -10,8 +10,12 @@
         <br>நடவடிக்கை பதிப்பு 1.2</br>
     </string>
     <string name="added">பிடித்தவையில் சேர்க்கப்பட்டது</string>
+    <string name="falseAdded">ிடித்தவையில் சேர்க்கப்பட்டத ந்த பஸ் குறித்ு</string>
     <string name="refreshBtn">புதுப்பிப்பு</string>
     <string name="FavoritesBtn">பிடித்தவையில் சேர்</string>
     <string name="Go">போய்</string>
     <string name="StopNumber">நிறுத்து எண்</string>
+    <string name="MapButton">வரைபடத்தில் இருப்பிடத்தைக் காணவும்</string>
+    <string name="refreshed">ங்கள் நிறுத்தத்தில் சேவை</string>
+
 </resources>

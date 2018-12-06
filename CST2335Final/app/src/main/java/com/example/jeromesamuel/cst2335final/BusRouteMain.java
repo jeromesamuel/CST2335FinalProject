@@ -55,12 +55,13 @@ public class BusRouteMain extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-
+                Log.i("favebutton", "has been clicked");
                 String stopNum =  stopNumber.getText().toString();
                 Intent intent = new Intent(BusRouteMain.this, BusFavorites.class);
-
                 intent.putExtra("Stop Number", stopNum);
                 startActivity(intent);
+
+
 
 
             }
@@ -94,6 +95,10 @@ public class BusRouteMain extends AppCompatActivity {
                 alertDialog.show();
                 //insert code to switch activity here
                 break;
+
+            case R.id.favesBtn:
+                Intent intent = new Intent(BusRouteMain.this, BusFavorites.class);
+                startActivity(intent);
 
         }
         return super.onOptionsItemSelected(item);

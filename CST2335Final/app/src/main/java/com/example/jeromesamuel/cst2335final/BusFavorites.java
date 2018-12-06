@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -38,8 +39,8 @@ public class BusFavorites extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bus_favorites);
+        Toast.makeText(this, "Long press a stop to delete it", Toast.LENGTH_LONG).show();
         stopList = new ArrayList<String>();
-
         String stopNum = getIntent().getStringExtra("Stop Number");
 
         bdh = new BusDatabaseHelper(this);
@@ -51,16 +52,17 @@ public class BusFavorites extends AppCompatActivity {
         final Cursor results = sqldb.query(false, BusDatabaseHelper.TABLE_NAME,
                 new String[]{BusDatabaseHelper.KEY_ID, BusDatabaseHelper.COLUMN_STOP},
                 null, null, null, null, null, null);
+
         int rows = results.getCount();//number of rows
         results.moveToFirst();
 
-
-        stopList.add(stopNum);
-        ContentValues insertValues = new ContentValues();
-        insertValues.put(BusDatabaseHelper.COLUMN_STOP, stopNum);
-        sqldb.insert(BusDatabaseHelper.TABLE_NAME, "", insertValues);
-        busAdapter.notifyDataSetChanged(); //this restarts the process of getCount() & getView()
-
+if(stopNum!= null) {
+    stopList.add(stopNum);
+    ContentValues insertValues = new ContentValues();
+    insertValues.put(BusDatabaseHelper.COLUMN_STOP, stopNum);
+    sqldb.insert(BusDatabaseHelper.TABLE_NAME, "", insertValues);
+    busAdapter.notifyDataSetChanged(); //this restarts the process of getCount() & getView()
+}
 
         //Toast.makeText(this, "Stop is already in favorites", Toast.LENGTH_SHORT).show();
 
@@ -103,8 +105,20 @@ public class BusFavorites extends AppCompatActivity {
 
                 Intent intent = new Intent(BusFavorites.this, BusRouteList.class);
                 intent.putExtra("Stop Number", stopNum);
-                Snackbar.make(view, stopNum+" has been selected", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 startActivity(intent);
+            }
+        });
+
+        busStopList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+
+            public boolean onItemLongClick(AdapterView<?> arg0, View v, int index, long arg3) {
+                // TODO Auto-generated method stub
+                String stopNum = busStopList.getAdapter().getItem(index).toString();
+                String deleted = getResources().getString(R.string.deleted);
+                deleteMessage(arg3, index);
+                Snackbar delete = Snackbar.make(busStopList, "Stop " +stopNum+ " " +deleted, Snackbar.LENGTH_LONG);
+                delete.show();
+                return true;
             }
         });
 
@@ -112,6 +126,29 @@ public class BusFavorites extends AppCompatActivity {
 
 
     }
+
+    public boolean addStop(String faveStop){
+
+        if(faveStop != null) {
+            stopList.add(faveStop);
+            ContentValues insertValues = new ContentValues();
+            insertValues.put(BusDatabaseHelper.COLUMN_STOP, faveStop);
+            sqldb.insert(BusDatabaseHelper.TABLE_NAME, "", insertValues);
+            busAdapter.notifyDataSetChanged(); //this restarts the process of getCount() & getView()
+
+            return true;
+        }
+        return false;
+    }
+
+    protected void deleteMessage(long id, int position){
+       stopList.remove(position);
+        sqldb.delete(BusDatabaseHelper.TABLE_NAME,BusDatabaseHelper.KEY_ID + "=" + id, null);
+        busAdapter.notifyDataSetChanged();
+        Toast.makeText(this, "Stop Removed", Toast.LENGTH_SHORT).show();
+    }
+
+
     public boolean ifStopInFavorites(String stop){
 for(int i =0; i < stopList.size(); i++){
     if (stop.equalsIgnoreCase(stopList.get(i).toString())){
