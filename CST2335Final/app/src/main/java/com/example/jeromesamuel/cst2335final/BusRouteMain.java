@@ -55,12 +55,13 @@ public class BusRouteMain extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-
+                Log.i("favebutton", "has been clicked");
                 String stopNum =  stopNumber.getText().toString();
                 Intent intent = new Intent(BusRouteMain.this, BusFavorites.class);
-                Snackbar.make(view, R.string.added, Snackbar.LENGTH_LONG);
                 intent.putExtra("Stop Number", stopNum);
                 startActivity(intent);
+
+
 
 
             }

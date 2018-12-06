@@ -2,6 +2,7 @@ package com.example.jeromesamuel.cst2335final;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -104,12 +105,16 @@ public class BusRouteView extends AppCompatActivity {
         Log.d("long in brv:", lon);
         Log.i("Getting info from BRM", stopNumber);
 
+        Snackbar faves = Snackbar.make(refresh, R.string.refreshed, Snackbar.LENGTH_LONG);
+        faves.show();
+
 
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
                 startActivity(getIntent());
+
             }
         });
 
