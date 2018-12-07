@@ -12,6 +12,7 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,10 +24,17 @@ public class news extends Activity {
     String imageLink;
     String extraInfo;
     String pageLink;
+    String  wordCount;
+    String pubDate;
+    String titles;
     Cursor cursor;
 
 
-    ArrayList<String> listArraySave = new ArrayList<>();
+    ArrayList<String> listArrayextra = new ArrayList<>();
+    ArrayList<String> listArraylink = new ArrayList<>();
+    ArrayList<String> listArrayimage = new ArrayList<>();
+    ArrayList<String> listArraycount = new ArrayList<>();
+
 
     protected NewsDatabaseHelper dbHelper;
     private SQLiteDatabase db;
@@ -44,7 +52,7 @@ public class news extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
 
-        ImageView  imageView = ( ImageView) findViewById(R.id.imageViewNews);
+        final ImageView  imageView = ( ImageView) findViewById(R.id.imageViewNews);
         TextView textViewNews = (TextView) findViewById(R.id.textViewNews);
         TextView textViewLink= (TextView) findViewById(R.id.textViewLink);
 
@@ -55,60 +63,54 @@ public class news extends Activity {
         imageLink = extras.getString("imageLink");
         extraInfo = extras.getString("extraInfo");
         pageLink = extras.getString("PageLink");
+       wordCount = extras.getString("wordCount");
+
+        titles = extras.getString("titles");
+        pubDate = extras.getString("pubDate");
 
 
         Picasso.get().load(imageLink).into(imageView);
-
-
-
-
         dbHelper = new NewsDatabaseHelper(this);  //1
-        db = dbHelper.getWritableDatabase();
-        String query = "SELECT * FROM " + dbHelper.TABLE_NAME;
-        // cursor = db.rawQuery(query, null);
+        db = dbHelper.getWritableDatabase();  //2
+
+
+        Cursor cursor = db.query(false, NewsDatabaseHelper.DATABASE_NAME,
+                new String[] { NewsDatabaseHelper.KEY_ID, NewsDatabaseHelper.KEY_MESSAGE, NewsDatabaseHelper.KEY_LINK,NewsDatabaseHelper.KEY_IMAGE_LINK,NewsDatabaseHelper.KEY_WORD_COUNT }, null, null, null, null,
+                null, null);
+        int rows = cursor.getCount(); // number of rows returned   //3
+
+        Log.i(ACTIVITY_NAME, "Cursor column count =" + cursor.getColumnCount());
+
+        cursor.moveToFirst(); // move to first result  //4
+
+        while (!cursor.isAfterLast()) {
+            Log.i(ACTIVITY_NAME,
+                    "SQL MESSAGE:" + cursor.getString(cursor.getColumnIndex(NewsDatabaseHelper.KEY_MESSAGE)));
+            listArrayextra.add(cursor.getString(cursor.getColumnIndex(NewsDatabaseHelper.KEY_MESSAGE)));
+            listArraylink.add(cursor.getString(cursor.getColumnIndex(NewsDatabaseHelper.KEY_LINK)));
+            listArrayimage.add(cursor.getString(cursor.getColumnIndex(NewsDatabaseHelper.KEY_IMAGE_LINK)));
+            listArraycount.add(cursor.getString(cursor.getColumnIndex(NewsDatabaseHelper.KEY_WORD_COUNT)));
+            cursor.moveToNext();
+
+        }  //5
+
+        for (int i = 0; i < cursor.getColumnCount(); i++) {
+            cursor.getColumnCount();
+            Log.i(ACTIVITY_NAME, "column count" + cursor.getColumnName(i));
+        }  //6
+
+
+
+
+
+
 
 
         Save = (Button) findViewById(R.id.Save);
 
-//        Cursor cursor = db.query(false, NewsDatabaseHelper.DATABASE_NAME,
-//                new String[] { NewsDatabaseHelper.KEY_ID, NewsDatabaseHelper.NEWS_TITLE }, null, null, null, null,
-//               null, null);
-//       int rows = cursor.getCount(); // number of rows returned   //3
-//    cursor.moveToFirst();
-//
-//
-//        ContentValues insertValues = new ContentValues();
-//        insertValues.put(NewsDatabaseHelper.NEWS_TITLE, extraInfo);
-//        db.insert(BusDatabaseHelper.TABLE_NAME, "", insertValues);
-//
-//
-//
-//        while (!cursor.isAfterLast()) {
-//            listArraySave.add(cursor.getString(cursor.getColumnIndex(NewsDatabaseHelper.NEWS_TITLE)));
-//            cursor.moveToNext();
-//
-//        }  //5
-//
-//        for (int i = 0; i < cursor.getColumnCount(); i++) {
-//            cursor.getColumnCount();
-//        }
-//
-//
-//        for (int i = 0; i < cursor.getColumnCount(); i++) {
-//            cursor.getColumnCount();
-//        }  //6
-
-
-
-
-
-
-
 
         textViewLink.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
-
 
 
                 Intent intent = new Intent(news.this, web.class);
@@ -128,19 +130,32 @@ public class news extends Activity {
                 Toast.makeText(news.this, "Article saved", Toast.LENGTH_SHORT).show();
                 String message = extraInfo;
 
+
+
                 ContentValues newValues = new ContentValues();
 
-                newValues.put(NewsDatabaseHelper.NEWS_TITLE, extraInfo);
+                newValues.put(NewsDatabaseHelper.KEY_MESSAGE, extraInfo);
+                newValues.put(NewsDatabaseHelper.KEY_IMAGE_LINK, imageLink);
+                newValues.put(NewsDatabaseHelper.KEY_LINK, pageLink);
+                newValues.put(NewsDatabaseHelper.KEY_WORD_COUNT, wordCount);
+
+
+
                 db.insert(NewsDatabaseHelper.DATABASE_NAME, message, newValues);
 
-                listArraySave.add(pageLink);
+
+
+
+
+                Save.setVisibility(view.GONE);
+
 
             }
         }); //7
 
 
 
-        textViewNews.setText(extraInfo);
+        textViewNews.setText(extraInfo + "\n\n Word Count=" +wordCount);
         textViewLink.setText("Article link: \n"+extras.getString("imageLink"));
 
     }

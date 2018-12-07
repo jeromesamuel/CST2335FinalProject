@@ -5,4 +5,9 @@
     <string name="Save">حفط</string>
     <string name="delete">حذف</string>
     <string name="Medium_Text">نص_منتصف</string>
+    <string name="stat">Generated statistics on the number of articles saved, average, max and min word count:</string>
+    <string name="Average">The Average is:</string>
+    <string name="Max">The Max is:</string>
+    <string name="Min">The Min is:</string>
+    <string name="Statistics">Statistics</string>
 </resources>

@@ -23,9 +23,12 @@ import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Array;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -38,6 +41,9 @@ public class CBCMainActivity extends AppCompatActivity {
     ArrayList<String> imageLinks;
     ArrayList<String> extraInfos;
     ArrayList<String> pubDate;
+    ArrayList<String> wordCount;
+    int Ave,max,min;
+
 
     String description;
     android.support.v7.widget.Toolbar toolbar;
@@ -62,6 +68,8 @@ public class CBCMainActivity extends AppCompatActivity {
         imageLinks = new ArrayList<String>();
         extraInfos = new ArrayList<String>();
         pubDate = new ArrayList<String>();
+        wordCount= new ArrayList<String>();
+
 
 
         new ProcessInBackground().execute();
@@ -111,7 +119,6 @@ public class CBCMainActivity extends AppCompatActivity {
                             }
                         });
                alertDialog.show();
-                //insert code to switch activity here
                 break;
             case R.id.item_save:
                 Toast.makeText(this, "Article saved", Toast.LENGTH_LONG).show();
@@ -124,6 +131,27 @@ public class CBCMainActivity extends AppCompatActivity {
 
                 startActivity(intent);
                 //insert code to switch activity here
+                break;
+
+            case R.id.item_stat:
+                String stst_info = getResources().getString(R.string.stat);
+                AlertDialog alertDialog2 = new AlertDialog.Builder(CBCMainActivity.this).create();
+                alertDialog2.setTitle(getResources().getString(R.string.Statistics));
+                int total =0;
+                for(int i = 0; i<wordCount.size(); i++){
+                    total +=Integer.valueOf(wordCount.get(i));
+                }
+                int avg = total / wordCount.size();
+                alertDialog2.setMessage(stst_info+"\n\n"+getResources().getString(R.string.Min)+Collections.min(wordCount)+"\n"+getResources().getString(R.string.Average)+avg+"\n"+getResources().getString(R.string.Max)+Collections.max(wordCount));
+
+                alertDialog2.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                                Log.d("ic info clicked", "here3");
+                            }
+                        });
+                alertDialog2.show();
                 break;
 
 
@@ -248,7 +276,23 @@ public class CBCMainActivity extends AppCompatActivity {
 
 
                                     imageLinks.add(imageLinkMatcher.group(1));
-                                    extraInfos.add(test2);
+                                   extraInfos.add(test2);
+//////////////////////////////////
+                                    String trimmed = test2.trim();
+                                    int words = trimmed.isEmpty() ? 0 : trimmed.split("\\s+").length;
+                                    wordCount.add(Integer.toString(words));
+                                    int total =0;
+                                    for(int i = 0; i<wordCount.size(); i++){
+                                        total +=Integer.valueOf(wordCount.get(i));
+                                    }
+                                    int avg = total / wordCount.size();
+
+                                  max= Integer.valueOf(Collections.max(wordCount)) ;
+                                  min= Integer.valueOf( Collections.min(wordCount));
+                                  Ave = avg;
+
+///////////////////
+                                    System.out.println("The Average IS:" + avg +" The Max is:"+Collections.max(wordCount)+" The Min is:"+Collections.min(wordCount));
 
                                     lvRss.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                         @Override
@@ -258,6 +302,12 @@ public class CBCMainActivity extends AppCompatActivity {
                                             extras.putString("imageLink", imageLinks.get(i));
                                             extras.putString("extraInfo", extraInfos.get(i));
                                             extras.putString("PageLink",links.get(i));
+                                            extras.putString("wordCount",wordCount.get(i));
+                                            extras.putString("titles",titles.get(i));
+                                            extras.putString("pubDate",pubDate.get(i));
+
+                                            extras.putInt("extraInfo2",i);
+
 
                                             intent.putExtras(extras);
                                             //intent.putExtra("extraInfo", extraInfos.get(i));

@@ -1,6 +1,8 @@
 package com.example.jeromesamuel.cst2335final;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,16 +34,28 @@ public class saved_List extends AppCompatActivity {
     ArrayList<String> imageLinks2;
     ArrayList<String> extraInfos2;
     ArrayList<String> pubDate2;
+    String pubDate;
+    String titles;
 
     String description;
     int test;
 
+    ArrayList<String> listArrayextra = new ArrayList<>();
+    ArrayList<String> listArrayimagelink = new ArrayList<>();
+    ArrayList<String> listArraylink = new ArrayList<>();
+    ArrayList<String> listArraycount = new ArrayList<>();
+
+    protected NewsDatabaseHelper dbHelper;
+    private SQLiteDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saved);
-
+        Intent intent= getIntent();
+        Bundle extras = intent.getExtras();
+        titles = extras.getString("titles");
+        pubDate = extras.getString("pubDate");
 
         Button delete = (Button) findViewById(R.id.delete);
 
@@ -56,6 +70,43 @@ public class saved_List extends AppCompatActivity {
         imageLinks2 = new ArrayList<String>();
         extraInfos2 = new ArrayList<String>();
         pubDate2 = new ArrayList<String>();
+
+
+        ///////////////////////////////////////////
+        dbHelper = new NewsDatabaseHelper(this);  //1
+        db = dbHelper.getWritableDatabase();  //2
+
+        Cursor cursor = db.query(false, NewsDatabaseHelper.DATABASE_NAME,
+                new String[] { NewsDatabaseHelper.KEY_ID, NewsDatabaseHelper.KEY_MESSAGE,NewsDatabaseHelper.KEY_LINK,NewsDatabaseHelper.KEY_IMAGE_LINK,NewsDatabaseHelper.KEY_WORD_COUNT }, null, null, null, null,
+                null, null);
+        int rows = cursor.getCount(); // number of rows returned   //3
+
+
+
+        cursor.moveToFirst(); // move to first result  //4
+
+        while (!cursor.isAfterLast()) {
+
+            listArrayextra.add(cursor.getString(cursor.getColumnIndex(NewsDatabaseHelper.KEY_MESSAGE)));
+            listArraylink.add(cursor.getString(cursor.getColumnIndex(NewsDatabaseHelper.KEY_LINK)));
+            listArrayimagelink.add(cursor.getString(cursor.getColumnIndex(NewsDatabaseHelper.KEY_IMAGE_LINK)));
+            listArraycount.add(cursor.getString(cursor.getColumnIndex(NewsDatabaseHelper.KEY_WORD_COUNT)));
+
+            cursor.moveToNext();
+
+        }  //5
+
+
+
+        for (int i = 0; i < cursor.getColumnCount(); i++) {
+            cursor.getColumnCount();
+        }  //6
+
+
+
+
+        /////////////////////////////////////////
+
 
         new ProcessInBackground2().execute();
 
@@ -259,7 +310,7 @@ public class saved_List extends AppCompatActivity {
 
           //  SavedCustomListAdapter adapter2 = new SavedCustomListAdapter(saved_List.this, titles2,pubDate2,extraInfos2);
 
-            SavedCustomListAdapter adapter2 = new SavedCustomListAdapter(saved_List.this, titles2,imageLinks2,pubDate2);
+            SavedCustomListAdapter adapter2 = new SavedCustomListAdapter(saved_List.this, titles2,listArrayimagelink,pubDate2);
             lvRss2.setAdapter(adapter2);
 
 

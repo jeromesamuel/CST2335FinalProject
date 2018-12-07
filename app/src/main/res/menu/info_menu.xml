@@ -3,14 +3,18 @@
     <menu xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <item android:id="@+id/item_stat"
+        android:icon="@drawable/ic_description"
+        android:title="item1"
+        app:showAsAction="always" />
 
         <item android:id="@+id/item_info"
             android:icon="@drawable/ic_info_copy"
-            android:title="item1"
+            android:title="item2"
             app:showAsAction="always" />
 
     <item android:id="@+id/item_save"
         android:icon="@drawable/ic_save"
-        android:title="item2"
+        android:title="item3"
         app:showAsAction="always" />
     </menu>

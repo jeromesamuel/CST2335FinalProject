@@ -23,10 +23,14 @@ public class SavedNews extends Activity {
     String imageLink;
     String extraInfo;
     String pageLink;
+    int extraInfos;
     Cursor cursor;
 
 
-    ArrayList<String> listArraySave = new ArrayList<>();
+    ArrayList<String> listArrayextra = new ArrayList<>();
+    ArrayList<String> listArrayimagelink = new ArrayList<>();
+    ArrayList<String> listArraylink = new ArrayList<>();
+    ArrayList<String> listArraycount = new ArrayList<>();
 
     protected NewsDatabaseHelper dbHelper;
     private SQLiteDatabase db;
@@ -47,71 +51,62 @@ public class SavedNews extends Activity {
         ImageView  imageView = ( ImageView) findViewById(R.id.SavedimageViewNews);
         TextView textViewNews = (TextView) findViewById(R.id.SavedtextViewNews);
         TextView textViewLink= (TextView) findViewById(R.id.SavedtextViewLink);
+////////////////////////////
+        dbHelper = new NewsDatabaseHelper(this);  //1
+        db = dbHelper.getWritableDatabase();  //2
+
+        Cursor cursor = db.query(false, NewsDatabaseHelper.DATABASE_NAME,
+                new String[] { NewsDatabaseHelper.KEY_ID, NewsDatabaseHelper.KEY_MESSAGE,NewsDatabaseHelper.KEY_LINK,NewsDatabaseHelper.KEY_IMAGE_LINK,NewsDatabaseHelper.KEY_WORD_COUNT }, null, null, null, null,
+                null, null);
+        int rows = cursor.getCount(); // number of rows returned   //3
+
+        Log.i(ACTIVITY_NAME, "Cursor column count =" + cursor.getColumnCount());
+
+        cursor.moveToFirst(); // move to first result  //4
+
+        while (!cursor.isAfterLast()) {
+            Log.i(ACTIVITY_NAME,
+                    "SQL MESSAGE:" + cursor.getString(cursor.getColumnIndex(NewsDatabaseHelper.KEY_MESSAGE)));
+            listArrayextra.add(cursor.getString(cursor.getColumnIndex(NewsDatabaseHelper.KEY_MESSAGE)));
+            listArraylink.add(cursor.getString(cursor.getColumnIndex(NewsDatabaseHelper.KEY_LINK)));
+            listArrayimagelink.add(cursor.getString(cursor.getColumnIndex(NewsDatabaseHelper.KEY_IMAGE_LINK)));
+            listArraycount.add(cursor.getString(cursor.getColumnIndex(NewsDatabaseHelper.KEY_WORD_COUNT)));
+
+             cursor.moveToNext();
+
+        }  //5
 
 
+
+        for (int i = 0; i < cursor.getColumnCount(); i++) {
+            cursor.getColumnCount();
+            Log.i(ACTIVITY_NAME, "column count" + cursor.getColumnName(i));
+        }  //6
+
+
+
+
+
+        //////////////////////////////
         Intent intent= getIntent();
         Bundle extras = intent.getExtras();
 
         imageLink = extras.getString("imageLink");
         extraInfo = extras.getString("extraInfo");
         pageLink = extras.getString("PageLink");
-
-
-        Picasso.get().load(imageLink).into(imageView);
-
+        extraInfos = extras.getInt("extraInfo2");
 
 
 
-        dbHelper = new NewsDatabaseHelper(this);  //1
-        db = dbHelper.getWritableDatabase();
-        String query = "SELECT * FROM " + dbHelper.TABLE_NAME;
-        // cursor = db.rawQuery(query, null);
+
+
 
 
         delete = (Button) findViewById(R.id.SavedDelete);
 
-//        Cursor cursor = db.query(false, NewsDatabaseHelper.DATABASE_NAME,
-//                new String[] { NewsDatabaseHelper.KEY_ID, NewsDatabaseHelper.NEWS_TITLE }, null, null, null, null,
-//               null, null);
-//       int rows = cursor.getCount(); // number of rows returned   //3
-//    cursor.moveToFirst();
-//
-//
-//        ContentValues insertValues = new ContentValues();
-//        insertValues.put(NewsDatabaseHelper.NEWS_TITLE, extraInfo);
-//        db.insert(BusDatabaseHelper.TABLE_NAME, "", insertValues);
-//
-//
-//
-//        while (!cursor.isAfterLast()) {
-//            listArraySave.add(cursor.getString(cursor.getColumnIndex(NewsDatabaseHelper.NEWS_TITLE)));
-//            cursor.moveToNext();
-//
-//        }  //5
-//
-//        for (int i = 0; i < cursor.getColumnCount(); i++) {
-//            cursor.getColumnCount();
-//        }
-//
-//
-//        for (int i = 0; i < cursor.getColumnCount(); i++) {
-//            cursor.getColumnCount();
-//        }  //6
-
-
-
-
-
-
-
-
         textViewLink.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-
-
-
-
-                Intent intent = new Intent(SavedNews.this, web.class);
+ Intent intent = new Intent(SavedNews.this, web.class);
 
                 intent.putExtra("linkToPage",pageLink);
 
@@ -130,10 +125,18 @@ public class SavedNews extends Activity {
         }); //7
 
 
+String test = String.valueOf(listArrayextra.size()-1);
+        String test2 = String.valueOf(listArrayimagelink.size()-1);
 
-        textViewNews.setText(extraInfo);
+        textViewNews.setText(listArrayextra.get(Integer.valueOf(test)));
         textViewLink.setText("Article link: \n"+extras.getString("imageLink"));
 
+//        String ee=listArrayimagelink.get(17);
+//     Log.i("ChatDatabaseHelper33",ee);
+        System.out.println(listArrayimagelink.size()+"--333");
+        System.out.println(listArrayimagelink.get(listArrayimagelink.size()-1)+"--333");
+
+     Picasso.get().load(listArrayimagelink.get(Integer.valueOf(test2))).into(imageView);
     }
     protected void onResume() {
         super.onResume();
