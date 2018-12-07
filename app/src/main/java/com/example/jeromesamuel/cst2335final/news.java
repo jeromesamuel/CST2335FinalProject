@@ -38,7 +38,7 @@ public class news extends Activity {
 
     protected NewsDatabaseHelper dbHelper;
     private SQLiteDatabase db;
-
+//
     Button Save;
 
     protected static final String ACTIVITY_NAME = "news";
