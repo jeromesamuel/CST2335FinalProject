@@ -13,8 +13,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
+
+
+/**
+ * Activity Name:
+ *
+ * This activity is used for
+ * @author Jerome Samuel
+ * @version 1.2
+ *
+ */
 public class BusRouteMain extends AppCompatActivity {
     Button getStopInfo;
     EditText stopNumber;
@@ -41,7 +50,7 @@ public class BusRouteMain extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                String stopNum =  stopNumber.getText().toString();
+                String stopNum = stopNumber.getText().toString();
                 String added = getResources().getString(R.string.added);
 
 
@@ -51,12 +60,12 @@ public class BusRouteMain extends AppCompatActivity {
             }
         });
 
-        favButton.setOnClickListener(new View.OnClickListener(){
+        favButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
                 Log.i("favebutton", "has been clicked");
-                String stopNum =  stopNumber.getText().toString();
+                String stopNum = stopNumber.getText().toString();
                 Intent intent = new Intent(BusRouteMain.this, BusFavorites.class);
                 intent.putExtra("Stop Number", stopNum);
                 startActivity(intent);
@@ -68,8 +77,14 @@ public class BusRouteMain extends AppCompatActivity {
         });
     }
 
+
+    /**
+     *
+     * @param menu
+     * @return
+     */
     @Override
-    public boolean onCreateOptionsMenu(Menu menu){
+    public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater info = getMenuInflater();
         info.inflate(R.menu.bus_help_menu, menu);
 
@@ -77,9 +92,14 @@ public class BusRouteMain extends AppCompatActivity {
 
     }
 
+    /**
+     *
+     * @param item
+     * @return
+     */
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch(item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.helpMenu:
                 Log.d("ic info clicked", "here");
                 String helpMsg = getResources().getString(R.string.help_menu);

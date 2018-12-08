@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -11,6 +12,15 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+/**
+ * Activity Name: BusMapView
+ *
+ * This activity is used for displaying the location of the bus that the user is querying on Google Maps
+ * @author Jerome Samuel
+ * @version 1.2
+ *
+ */
 
 public class BusMapView extends FragmentActivity implements OnMapReadyCallback {
 
@@ -32,7 +42,7 @@ Float lon;
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
      * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
+     * we just add a marker on the current bus selected
      * If Google Play services is not installed on the device, the user will be prompted to install
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
@@ -57,13 +67,13 @@ Float lon;
         }
         catch(NumberFormatException e){
             Log.i("Error:", "NumberFormatException");
-            LatLng bus = new LatLng(45.366838, -75.727285);
+            LatLng bus = new LatLng(0,0);
             mMap.addMarker(new MarkerOptions().position(bus).title("Bus Location"));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(bus));
+            Toast.makeText(this, "Bus could not be located", Toast.LENGTH_SHORT).show();
 
         }
 
-        // Add a marker in Sydney and move the camera
 
     }
 }

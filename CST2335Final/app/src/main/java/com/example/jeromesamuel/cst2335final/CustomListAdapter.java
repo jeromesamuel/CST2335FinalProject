@@ -48,7 +48,7 @@ public class CustomListAdapter extends ArrayAdapter<String> {
 
         txtTitle.setText(titles.get(position));
         pubDate.setText(pubDates.get(position));
-       Picasso.get().load(imagelinks.get(position)).into(imageView);
+        Picasso.get().load(imagelinks.get(position)).into(imageView);
 
 
 

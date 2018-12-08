@@ -3,17 +3,14 @@ package com.example.jeromesamuel.cst2335final;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentActivity;
-import com.google.android.gms.maps.CameraUpdateFactory;
+
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+
 import android.util.Log;
-import android.util.Xml;
+
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -25,33 +22,25 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import com.google.android.gms.maps.OnMapReadyCallback;
 
+/**
+ * Activity Name:
+ *
+ * This activity is used for viewing the details of a specific bus route at a bus stop
+ * @author Jerome Samuel
+ * @version 1.2
+ *
+ */
 
-import javax.xml.transform.Result;
 
 public class BusRouteView extends AppCompatActivity {
-    //            public String tripDest;
-    //            public String currentLocationLat;
-    //            public String currentLocationLong;
-    //            public String currentSpeed;
-    //            public String tripStartTime;
-    //            public String scheduledTime;
+
 
     ProgressBar progBar;
     public TextView busRouteNum, busLocation, busSpeed, tripStart, scheduledTimeArrival;
@@ -65,6 +54,11 @@ public class BusRouteView extends AppCompatActivity {
     private static String URL;
     Intent intent;
 
+
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -134,6 +128,15 @@ public class BusRouteView extends AppCompatActivity {
 
     }
 
+    /**
+     *
+     * Class Name:
+     *
+     * This activity is used for querying the api for the bus details and returning it to the user
+     * @author Jerome Samuel
+     * @version 1.2
+     *
+     */
 
 
 
@@ -149,6 +152,12 @@ public class BusRouteView extends AppCompatActivity {
         Exception exception = null;
 
         private final String ns = null;
+
+        /**
+         *
+         * @param args
+         * @return String
+         */
 
 
         public String doInBackground(String...args) {
@@ -239,7 +248,7 @@ public class BusRouteView extends AppCompatActivity {
                                     currentSpeed = parser.nextText();
                                     speedList.add(currentSpeed);
                                     Log.d("speed:", currentSpeed);
-                                    sleep();
+
 
 
 
@@ -264,6 +273,7 @@ public class BusRouteView extends AppCompatActivity {
             } catch (XmlPullParserException e) {
                 Log.d("Exception: ", "XMLPullParserException");
                 exception = e;
+
             } catch (IOException e) {
                 Log.d("Exception: ", "IOException");
                 exception = e;
@@ -273,14 +283,31 @@ public class BusRouteView extends AppCompatActivity {
             }
             return null;
         }
+
+        /**
+         *
+         * @param lat
+         *
+         */
         public void setLat(String lat) {
             currentLocationLat = lat;
         }
 
+
+        /**
+         *
+         * @param lon
+         *
+         */
         public void setLong(String lon) {
             currentLocationLong = lon;
         }
 
+
+        /**
+         *
+         * @return String value of latitude
+         */
         public String getLat() {
 
             if (currentLatList.size() > 0) {
@@ -290,6 +317,10 @@ public class BusRouteView extends AppCompatActivity {
                 return "0";
         }
 
+        /**
+         *
+         * @return String value of longitude
+         */
         public String getLong() {
             if (currentLongList.size() > 0) {
 
@@ -300,63 +331,71 @@ public class BusRouteView extends AppCompatActivity {
         }
 
 
+        /**
+         * Executes after background tasks are complete, sets values of string to text fields
+         * @param args
+         */
         protected void onPostExecute(String args) {
 
+try {
+
+    String infoNA = "Information not available";
+
+    if (tripDestList == null)
+        tripDest = infoNA;
+    else if (tripDestList.size() > 0) {
+        Log.d("tripDest: ARRAYOOBE: ", tripDestList.get(0));
+        tripDest = tripDestList.get(0);
+    }
+
+    if (currentLatList == null && currentLongList == null)
+        busLocation.setText("Location: " + infoNA);
+    else if (currentLatList.size() > 0 && currentLongList.size() > 0) {
+        currentLocationLat = currentLatList.get(0);
+        currentLocationLong = currentLongList.get(0);
+    }
+
+    if (speedList == null)
+        currentSpeed = infoNA;
+    else if (speedList.size() > 0) {
+        currentSpeed = speedList.get(0);
+    }
+
+    if (startTimeList == null)
+        tripStartTime = infoNA;
+    else if (startTimeList.size() > 0) {
+        tripStartTime = startTimeList.get(0);
+    }
+
+    if (scheduledTimeList == null)
+        scheduledTime = infoNA;
+    else if (scheduledTimeList.size() > 0) {
+        scheduledTime = scheduledTimeList.get(0);
+    }
 
 
-            String infoNA = "Information not available";
+    busRouteNum.setText("Trip Destination:" + tripDest);
+    publishProgress(40);
+    busLocation.setText("Location: " + currentLocationLat + ", " + currentLocationLong);
+    busSpeed.setText("Current speed: " + currentSpeed + " km/h");
+    tripStart.setText("Trip starts/started at: " + tripStartTime);
+    scheduledTimeArrival.setText("ETA: " + scheduledTime + " minutes");
+    sendLocation();
+    publishProgress(100);
+    BusRouteView brv = new BusRouteView();
+    progBar.setVisibility(View.VISIBLE);
 
-            if (tripDestList == null)
-                tripDest = infoNA;
-            else if (tripDestList.size() > 0) {
-                Log.d("tripDest: ARRAYOOBE: ", tripDestList.get(0));
-                tripDest = tripDestList.get(0);
-            }
-
-            if (currentLatList == null && currentLongList == null)
-                busLocation.setText("Location: " + infoNA);
-            else if (currentLatList.size() > 0 && currentLongList.size() > 0) {
-                currentLocationLat = currentLatList.get(0);
-                currentLocationLong = currentLongList.get(0);
-            }
-
-            if (speedList == null)
-                currentSpeed = infoNA;
-            else if (speedList.size() > 0) {
-                currentSpeed = speedList.get(0);
-            }
-
-            if (startTimeList == null)
-                tripStartTime = infoNA;
-            else if (startTimeList.size() > 0) {
-                tripStartTime = startTimeList.get(0);
-            }
-
-            if (scheduledTimeList == null)
-                scheduledTime = infoNA;
-            else if (scheduledTimeList.size() > 0) {
-                scheduledTime = scheduledTimeList.get(0);
-            }
-
-
-
-
-            busRouteNum.setText("Trip Destination:" + tripDest);
-            publishProgress(40);
-            busLocation.setText("Location: " + currentLocationLat + ", " + currentLocationLong);
-            busSpeed.setText("Current speed: " + currentSpeed + " km/h");
-            tripStart.setText("Trip starts/started at: " + tripStartTime);
-            scheduledTimeArrival.setText("ETA: " + scheduledTime + " minutes");
-            sendLocation();
-            publishProgress(100);
-            BusRouteView brv = new BusRouteView();
-            progBar.setVisibility(View.VISIBLE);
-
-
+}
+catch(Exception e){
+    Toast.makeText(BusRouteView.this, "Error retrieving data", Toast.LENGTH_SHORT).show();
+}
             //    Log.i(TAG, "onPostExecute: string passed = "+args);
 
         }
 
+        /**
+         * @summary Makes the thread sleep
+         */
         private void sleep() {
             try {
                 Thread.sleep(200);
@@ -379,32 +418,12 @@ public class BusRouteView extends AppCompatActivity {
         }
 
 
-        //
-        //        public boolean ifFileExists(String fname){
-        //            Log.d("", "Checking if file already exists" );
-        //            File file = getBaseContext().getFileStreamPath(fname);
-        //            return file.exists();
-        //        }
+
     }
 
 
 
 
-
-
-    // Given a string representation of a URL, sets up a connection and gets
-    // an input stream.
-    //    private InputStream downloadUrl(String urlString) throws IOException {
-    //        URL url = new URL(urlString);
-    //        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-    //        conn.setReadTimeout(10000 /* milliseconds */);
-    //        conn.setConnectTimeout(15000 /* milliseconds */);
-    //        conn.setRequestMethod("GET");
-    //        conn.setDoInput(true);
-    //        // Starts the query
-    //        conn.connect();
-    //        return conn.getInputStream();
-    //    }
 
 
 

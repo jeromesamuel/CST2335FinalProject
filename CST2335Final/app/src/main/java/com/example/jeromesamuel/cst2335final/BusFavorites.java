@@ -14,16 +14,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
+
+
+
+/**
+ * Activity Name: Bus Favorites
+ *
+ * @summary This activity is used for displaying the list of favorite stops that the user has
+ * @author Jerome Samuel
+ * @version 1.2
+ *
+ */
 
 public class BusFavorites extends AppCompatActivity {
 
@@ -115,7 +120,7 @@ if(stopNum!= null) {
                 // TODO Auto-generated method stub
                 String stopNum = busStopList.getAdapter().getItem(index).toString();
                 String deleted = getResources().getString(R.string.deleted);
-                deleteMessage(arg3, index);
+                delete(arg3, index);
                 Snackbar delete = Snackbar.make(busStopList, "Stop " +stopNum+ " " +deleted, Snackbar.LENGTH_LONG);
                 delete.show();
                 return true;
@@ -126,6 +131,12 @@ if(stopNum!= null) {
 
 
     }
+
+    /**
+     *
+     * @param faveStop
+     * @return
+     */
 
     public boolean addStop(String faveStop){
 
@@ -141,13 +152,24 @@ if(stopNum!= null) {
         return false;
     }
 
-    protected void deleteMessage(long id, int position){
+    /**
+     *
+     * @param id
+     * @param position
+     */
+
+    protected void delete(long id, int position){
        stopList.remove(position);
         sqldb.delete(BusDatabaseHelper.TABLE_NAME,BusDatabaseHelper.KEY_ID + "=" + id, null);
         busAdapter.notifyDataSetChanged();
         Toast.makeText(this, "Stop Removed", Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     *
+     * @param stop
+     * @return
+     */
 
     public boolean ifStopInFavorites(String stop){
 for(int i =0; i < stopList.size(); i++){
@@ -161,24 +183,47 @@ for(int i =0; i < stopList.size(); i++){
     }
 
 
+    /**
+     *
+     */
 
 
     private class ChatAdapter extends ArrayAdapter<String> {
 
+        /**
+         *
+         * @param ctx
+         */
         public ChatAdapter(Context ctx) {
             super(ctx, 0);
         }
 
+        /**
+         *
+         * @return
+         */
         public int getCount(){
             return stopList.size();
         }
 
+        /**
+         *
+         * @param position
+         * @return
+         */
         public String getItem(int position){
             return stopList.get(position);
 
 
         }
 
+        /**
+         *
+         * @param position
+         * @param convertView
+         * @param parent
+         * @return
+         */
         public View getView(int position, View convertView, ViewGroup parent){
             LayoutInflater inflater = BusFavorites.this.getLayoutInflater();
 
@@ -193,7 +238,11 @@ for(int i =0; i < stopList.size(); i++){
 
         }
 
-
+        /**
+         *
+         * @param position
+         * @return
+         */
 
         public long getItemId(int position){
 
@@ -207,6 +256,10 @@ for(int i =0; i < stopList.size(); i++){
 
         }
     }
+
+    /**
+     *
+     */
 
     protected void onDestroy(){
 
