@@ -1,7 +1,6 @@
 package com.example.jeromesamuel.cst2335final;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,47 +8,64 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class SavedCustomListAdapter extends ArrayAdapter<String> {
+/**
+ * Activity Name =
+ * @author Yahya Wardere
+ * @version 1.0
+ */
+public class SavedCustomListAdapter extends ArrayAdapter < String > {
 
-    private final Activity context;
-    private final ArrayList<String> titles;
-    private final ArrayList<String> pubDates;
-    private final ArrayList<String> extraInfos;
+    private final Activity context2;
+    private final ArrayList < String > titles2;
+    private final ArrayList < String > imagelinks2;
+    private final ArrayList < String > pubDates2;
 
-    ImageView imageView;
+    ImageView imageView2;
 
 
-
-    public SavedCustomListAdapter(Activity context, ArrayList<String> titles,ArrayList<String> pubDates , ArrayList<String> extraInfos) {
-        super(context, R.layout.saved_list_parts, titles);
+    /**
+     *
+     * @param context
+     * @param titles2
+     * @param imagelinks2
+     * @param pubDates2
+     */
+    public SavedCustomListAdapter(Activity context, ArrayList < String > titles2, ArrayList < String > imagelinks2, ArrayList < String > pubDates2) {
+        super(context, R.layout.saved_list_parts, imagelinks2);
         // TODO Auto-generated constructor stub
 
-        this.context = context;
-        this.titles = titles;
-        this.pubDates =pubDates;
-        this.extraInfos =extraInfos;
+        this.context2 = context;
+        this.titles2 = titles2;
+        this.imagelinks2 = imagelinks2;
+        this.pubDates2 = pubDates2;
 
     }
 
+    /**
+     *
+     * @param position
+     * @param view
+     * @param parent
+     * @return
+     */
+
     public View getView(int position, View view, ViewGroup parent) {
-        LayoutInflater inflater = context.getLayoutInflater();
+        LayoutInflater inflater = context2.getLayoutInflater();
         View rowView = inflater.inflate(R.layout.saved_list_parts, null, true);
 
+
+
         TextView txtTitle = (TextView) rowView.findViewById(R.id.Savedtext);
-        //imageView = (ImageView) rowView.findViewById(R.id.savedIcon);
+        imageView2 = (ImageView) rowView.findViewById(R.id.Savedicon);
 
         TextView pubDate = (TextView) rowView.findViewById(R.id.Savedtext1);
-
-
-
-
-        txtTitle.setText("222");
-        pubDate.setText("22");
-     txtTitle.setTextColor(Color.BLACK);
-
+        txtTitle.setText(titles2.get(position));
+        pubDate.setText(pubDates2.get(position));
+        Picasso.get().load(imagelinks2.get(position)).into(imageView2);
 
 
 

@@ -22,6 +22,16 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+/**
+ * Activity Name: BusRouteList
+ *
+ * This activity is used for returning a list of busses that service a certain bus stop
+ * @author Jerome Samuel
+ * @version 1.2
+ *
+ *
+ */
+
 
 public class BusRouteList extends AppCompatActivity {
     String TAG = MainActivity.class.getSimpleName();
@@ -35,56 +45,76 @@ public class BusRouteList extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+try {
+    super.onCreate(savedInstanceState);
+    Log.i("Current method: ", "in on Create");
 
-        super.onCreate(savedInstanceState);
-        Log.i("Current method: ", "in on Create");
+    busRouteArray = new ArrayList<String>();
+    busDirectionArray = new ArrayList<String>();
 
-        busRouteArray = new ArrayList<String>();
-        busDirectionArray = new ArrayList<String>();
+    busList = new ArrayList<>();
+    setContentView(R.layout.activity_bus_route_list);
+    listview = (ListView) findViewById(R.id.busList);
+    stopNum = getIntent().getStringExtra("Stop Number");
+    new GetBusRoutes().execute();
 
-        busList = new ArrayList<>();
-        setContentView(R.layout.activity_bus_route_list);
-        listview = (ListView) findViewById(R.id.busList);
-        stopNum = getIntent().getStringExtra("Stop Number");
-        new GetBusRoutes().execute();
+    Toast.makeText(this, "Routes for Stop " + stopNum, Toast.LENGTH_LONG).show();
+    listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-        Toast.makeText(this, "Routes for Stop "+stopNum, Toast.LENGTH_LONG).show();
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            listview.getAdapter().getItem(position);
+            Log.d("listview", listview.getAdapter().getItem(position).toString());
+            String pos = Integer.toString(position);
+            Log.d("Position", pos);
 
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-               listview.getAdapter().getItem(position);
-               Log.d("listview", listview.getAdapter().getItem(position).toString());
-               String pos = Integer.toString(position);
-               Log.d("Position", pos);
+            TextView lvBusNum = findViewById(R.id.busRoute);
+            String busNum = ((TextView) view.findViewById(R.id.busRoute)).getText().toString();
 
-               TextView lvBusNum =  findViewById(R.id.busRoute);
-               String busNum = ((TextView)view.findViewById(R.id.busRoute)).getText().toString();
-
-               Log.d("listViewBusNumber", busNum);
-               Intent intent = new Intent(BusRouteList.this, BusRouteView.class);
-               intent.putExtra("stopNumber", stopNum);
-               intent.putExtra("busNumber", busNum);
-               startActivity(intent);
-            }
-        });
+            Log.d("listViewBusNumber", busNum);
+            Intent intent = new Intent(BusRouteList.this, BusRouteView.class);
+            intent.putExtra("stopNumber", stopNum);
+            intent.putExtra("busNumber", busNum);
+            startActivity(intent);
+        }
+    });
+}
+catch(Exception e){
+    Toast.makeText(this, "Unable to retrieve route list", Toast.LENGTH_SHORT).show();
+}
     }
+
+    
+
+
 
     private class GetBusRoutes extends AsyncTask<Void, Void, Void>{
 
         @Override
         protected void onPreExecute() {
-            super.onPreExecute();
+           try {
+               super.onPreExecute();
 
-            busLoad = new ProgressDialog(BusRouteList.this);
-            busLoad.setMessage("Loading bus list");
-            busLoad.show();
+               busLoad = new ProgressDialog(BusRouteList.this);
+               busLoad.setMessage("Loading bus list");
+               busLoad.show();
+           }
+           catch(Exception e){
+               Log.d("Error found", "in PreExecute");
+               Toast.makeText(BusRouteList.this, "Error retrieving list", Toast.LENGTH_SHORT).show();
+           }
         }
 
 
+        /**
+         *
+         * @param voids
+         * @return
+         */
 
         @Override
         protected Void doInBackground(Void... voids) {
+            try {
             busRouteArray.clear();
             busDirectionArray.clear();
             JSONHandler json = new JSONHandler();
@@ -92,7 +122,7 @@ public class BusRouteList extends AppCompatActivity {
 //            Log.e(TAG, "Response from url: " + busRouteJSON);
 
 
-try {
+
     URL url = new URL("http://api.octranspo1.com/v1.2/GetRouteSummaryForStop?appID=223eb5c3&&apiKey=ab27db5b435b8c8819ffb8095328e775&stopNo="+stopNum);
 
 
@@ -146,35 +176,51 @@ try {
 catch (MalformedURLException e)
 {
     Log.d("Exception: ", "MalformedURLException");
-    exception = e;
+
 }
 catch (XmlPullParserException e)
 {
     Log.d("Exception: ", "XMLPullParserException");
-    exception = e;
+
+    Toast.makeText(BusRouteList.this, "Server error", Toast.LENGTH_SHORT).show();
 }
 catch (IOException e)
 {
     Log.d("Exception: ", "IOException");
-    exception = e;
+    Toast.makeText(BusRouteList.this, "Unable to find stop", Toast.LENGTH_SHORT).show();
+
+}
+catch(Exception e){
+    Log.d("Exception: ", "Generic");
+    Toast.makeText(BusRouteList.this, "Error", Toast.LENGTH_SHORT).show();
+
 }
 
             return null;
         }
 
+        /**
+         *
+         * @param aVoid
+         */
         @Override
         protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            // Dismiss the progress dialog
-            if (busLoad.isShowing())
-                busLoad.dismiss();
-            /**
-             * Updating parsed xml data into ListView
-             * */
-            ListAdapter adapter = new BusCustomListAdapter(
-                    BusRouteList.this, busRouteArray, busDirectionArray);
+            try {
+                super.onPostExecute(aVoid);
+                // Dismiss the progress dialog
+                if (busLoad.isShowing())
+                    busLoad.dismiss();
+                /**
+                 * Updating parsed xml data into ListView
+                 * */
+                ListAdapter adapter = new BusCustomListAdapter(
+                        BusRouteList.this, busRouteArray, busDirectionArray);
 
-                    listview.setAdapter(adapter);
+                listview.setAdapter(adapter);
+            }
+            catch(Exception e){
+                Toast.makeText(BusRouteList.this, "Error", Toast.LENGTH_SHORT).show();
+            }
 
         }
 

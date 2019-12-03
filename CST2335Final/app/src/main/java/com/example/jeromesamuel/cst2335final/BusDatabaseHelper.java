@@ -6,7 +6,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 /**
- * Created by jeromesamuel on 2018-12-03.
+ * Activity Name: Bus Database Helper
+ *
+ * This activity is used for creating and accessing the databases of favorite bus stops
+ * @author Jerome Samuel
+ * @version 1.2
+ *
  */
 
 public class BusDatabaseHelper extends SQLiteOpenHelper {
@@ -25,6 +30,10 @@ public class BusDatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    /**
+     *
+     * @param sqldb
+     */
 
     @Override
     public void onCreate(SQLiteDatabase sqldb) {
@@ -38,6 +47,13 @@ public class BusDatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    /**
+     *
+     * @param sqldb
+     * @param i
+     * @param i1
+     */
+
     @Override
     public void onUpgrade(SQLiteDatabase sqldb, int i, int i1) {
         Log.i(ACTIVITY_NAME, "Calling onUpgrade");
@@ -46,6 +62,12 @@ public class BusDatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    /**
+     *
+     * @param sqldb
+     * @param i
+     * @param i1
+     */
     @Override
     public void onDowngrade(SQLiteDatabase sqldb, int i, int i1){
         sqldb.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME);

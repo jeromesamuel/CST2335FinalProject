@@ -25,6 +25,18 @@
     <string name="title_activity_bus_map_view">Map</string>
     <string name="refreshed">Bus location has been updated</string>
     <string name="deleted"> has been deleted.</string>
+    <string name="Save">Save</string>
+    <string name="delete">delete</string>
+    <string name="Medium_Text">Medium_Text</string>
+    <string name="stat">Generated statistics on the number of articles saved, average, max and min word count:</string>
+    <string name="Average">The Average is:</string>
+    <string name="Max">The Max is:</string>
+    <string name="Min">The Min is:</string>
+    <string name="Statistics">Statistics</string>
+    <string name="try_again">Reconnect</string>
+    <string name="SavedList">This a List of Saved Articles</string>
+    <string name="Enjoy">Enjoy</string>
+
 
 
 </resources>

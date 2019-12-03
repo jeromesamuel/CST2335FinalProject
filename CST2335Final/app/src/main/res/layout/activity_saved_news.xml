@@ -13,10 +13,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
-        tools:context=".news">
+        tools:context=".SavedNews">
 
         <ImageView
-            android:id="@+id/imageViewNews"
+            android:id="@+id/SavedimageViewNews"
             android:layout_width="match_parent"
             android:layout_height="263dp"
             android:adjustViewBounds="true"
@@ -26,7 +26,7 @@
             android:src="@mipmap/ic_launcher" />
 
         <TextView
-            android:id="@+id/textViewNews"
+            android:id="@+id/SavedtextViewNews"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -42,11 +42,11 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageViewNews"
+            app:layout_constraintTop_toBottomOf="@+id/SavedimageViewNews"
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/textViewLink"
+            android:id="@+id/SavedtextViewLink"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -57,7 +57,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewNews" />
+            app:layout_constraintTop_toBottomOf="@+id/SavedtextViewNews" />
 
         <LinearLayout
             android:layout_width="336dp"
@@ -71,22 +71,22 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewLink"
+            app:layout_constraintTop_toBottomOf="@+id/SavedtextViewLink"
             app:layout_constraintVertical_bias="1.0">
 
             <Button
-                android:id="@+id/Save"
+                android:id="@+id/SavedDelete"
                 android:layout_width="90dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="Save"
+                android:text="Delete"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewLink"
+                app:layout_constraintTop_toBottomOf="@+id/SavedtextViewLink"
                 app:layout_constraintVertical_bias="1.0" />
         </LinearLayout>
 
