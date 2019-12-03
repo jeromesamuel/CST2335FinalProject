@@ -6,8 +6,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.webkit.WebView;
 
+/**
+ * Activity Name =
+ * @author Yahya Wardere
+ * @version 1.0
+ */
 public class web extends Activity {
-
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

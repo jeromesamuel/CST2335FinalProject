@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import com.google.android.gms.maps.GoogleMap;
 
 import android.os.AsyncTask;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import android.util.Log;
@@ -53,6 +54,7 @@ public class BusRouteView extends AppCompatActivity {
     BusQuery bq = new BusQuery();
     private static String URL;
     Intent intent;
+    NotificationCompat.Builder notif;
 
 
     /**
@@ -78,6 +80,7 @@ public class BusRouteView extends AppCompatActivity {
         mapBtn = (Button) findViewById(R.id.mapBtn);
         busRouteNum = (TextView) findViewById(R.id.displayRouteNumberAndDestination);
         intent = new Intent(BusRouteView.this, BusMapView.class);
+        notif = new NotificationCompat.Builder(this);
 
         tripDestList = new ArrayList < String > ();
         currentLatList = new ArrayList < String > ();
@@ -115,7 +118,6 @@ public class BusRouteView extends AppCompatActivity {
         mapBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
 
                 startActivity(intent);
             }
@@ -330,6 +332,12 @@ public class BusRouteView extends AppCompatActivity {
                 return "0";
         }
 
+        public String getScheduledTime(){
+
+
+            return scheduledTime;
+        }
+
 
         /**
          * Executes after background tasks are complete, sets values of string to text fields
@@ -371,6 +379,10 @@ try {
         scheduledTime = infoNA;
     else if (scheduledTimeList.size() > 0) {
         scheduledTime = scheduledTimeList.get(0);
+    }
+
+    if (scheduledTime .equalsIgnoreCase("2")){
+        notif.setSmallIcon(R.drawable.ic_launcher_background).setContentTitle("OC JeromeSpo").setContentText("Your bus is arriving in two minutes");
     }
 
 

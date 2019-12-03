@@ -1,100 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:scrollbars="none" android:layout_width="match_parent" android:layout_height="match_parent" >
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context="com.example.jeromesamuel.cst2335final.BusRouteView"
+    android:layout_height="match_parent"
     android:background="@drawable/ottawamap"
-    >
-
-
+    tools:context="com.example.jeromesamuel.cst2335final.BusRouteView">
 
 
     <ImageView
-        android:contentDescription="bus image for app"
         android:id="@+id/busImage"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:contentDescription="bus image for app"
         app:srcCompat="@drawable/buswhitegif" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/busImage"
-        android:orientation="vertical"
+        android:layout_margin="30dp"
 
 
-        android:layout_margin="30dp">
+        android:orientation="vertical">
 
 
         <TextView
-            android:textColor="@android:color/white"
+            android:id="@+id/displayRouteNumberAndDestination"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:shadowColor="@android:color/white"
             android:shadowDx="3"
             android:shadowDy="3"
             android:shadowRadius="3"
-            android:id="@+id/displayRouteNumberAndDestination"
+            android:textColor="@android:color/white"
             android:textSize="25dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
 
             />
 
         <TextView
-            android:textColor="@android:color/white"
-            android:shadowColor="@android:color/white"
-            android:shadowDx="3"
-            android:shadowDy="3"
-            android:shadowRadius="5"
-            android:textSize="25dp"
             android:id="@+id/busLocation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            />
-
-        <TextView
-            android:textColor="@android:color/white"
             android:shadowColor="@android:color/white"
             android:shadowDx="3"
             android:shadowDy="3"
             android:shadowRadius="5"
-            android:textSize="25dp"
+            android:textColor="@android:color/white"
+            android:textSize="25dp" />
+
+        <TextView
             android:id="@+id/busSpeed"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            />
-
-        <TextView
-            android:textColor="@android:color/white"
             android:shadowColor="@android:color/white"
             android:shadowDx="3"
             android:shadowDy="3"
             android:shadowRadius="5"
-            android:textSize="25dp"
+            android:textColor="@android:color/white"
+            android:textSize="25dp" />
+
+        <TextView
             android:id="@+id/tripStartTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            />
-
-        <TextView
-            android:textColor="@android:color/white"
             android:shadowColor="@android:color/white"
             android:shadowDx="3"
             android:shadowDy="3"
             android:shadowRadius="5"
-            android:textSize="25dp"
+            android:textColor="@android:color/white"
+            android:textSize="25dp" />
+
+        <TextView
             android:id="@+id/scheduledTimeAdjusted"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            />
+            android:shadowColor="@android:color/white"
+            android:shadowDx="3"
+            android:shadowDy="3"
+            android:shadowRadius="5"
+            android:textColor="@android:color/white"
+            android:textSize="25dp" />
 
         <Button
 
@@ -102,7 +100,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:text="@string/refreshBtn"/>
+            android:text="@string/refreshBtn" />
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -115,8 +113,9 @@
             android:id="@+id/mapBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/MapButton"/>
+            android:text="@string/MapButton" />
 
     </LinearLayout>
 
 </RelativeLayout>
+</ScrollView>
